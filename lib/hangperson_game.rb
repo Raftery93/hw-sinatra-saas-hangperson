@@ -19,7 +19,7 @@ class HangpersonGame
     @guesses = ''
     @wrong_guesses = ''
     @word_with_guesses = ''
-   
+    
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
@@ -37,9 +37,18 @@ def guess(letter)
     letter.downcase!
     
     if word.include? letter
-     
+     if !guesses.include? letter
+        guesses << letter ## Add the letter to the guesses array if that letter has not been guessed already.
+        for i in 0..word.length ## For each letter in the word including the last letter in the word.
+          if word[i] == letter ## If the letter is equal to the letter at i index in word.
+            word_with_guesses[i] = letter ## Change the character at that index from '-' to the letter.
+            if !word_with_guesses.include? '-' ## If the word with guesses does not include a '-'.
+              @check_win_or_lose = :win ## The game has been won.
+            end
+          end
+        end
         return true
       end
-    
+    end
   end
 end
