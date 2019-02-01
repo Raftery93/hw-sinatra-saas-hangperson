@@ -8,8 +8,15 @@ class HangpersonGame
   # def initialize()
   # end
   
+  attr_accessor :word
+
+  
+  # Initialize the game
   def initialize(word)
     @word = word
+    @guesses = ''
+    
+
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
@@ -22,6 +29,14 @@ class HangpersonGame
     Net::HTTP.new('watchout4snakes.com').start { |http|
       return http.post(uri, "").body
     }
+    
+    
   end
+  
+def guess(letter)
+   
 
+  end
+  
+  
 end
