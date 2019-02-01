@@ -38,17 +38,32 @@ def guess(letter)
     
     if word.include? letter
      if !guesses.include? letter
-        guesses << letter ## Add the letter to the guesses array if that letter has not been guessed already.
-        for i in 0..word.length ## For each letter in the word including the last letter in the word.
-          if word[i] == letter ## If the letter is equal to the letter at i index in word.
-            word_with_guesses[i] = letter ## Change the character at that index from '-' to the letter.
-            if !word_with_guesses.include? '-' ## If the word with guesses does not include a '-'.
-              @check_win_or_lose = :win ## The game has been won.
+       # Add letter to array, if letter has not been guessed
+        guesses << letter
+         # For each letter in word including last letter
+        for i in 0..word.length
+        # If letter is equal to the letter at index i
+          if word[i] == letter
+            # Change character at index from '-' to letter
+            word_with_guesses[i] = letter 
+            # If word with guesses does not include a '-'
+            if !word_with_guesses.include? '-' 
+              # Win the game
+              @check_win_or_lose = :win
             end
-          end
+      else
+        ## If letter has not already been guessed
+       if !wrong_guesses.include? letter 
+         # Add the letter to array
+        wrong_guesses << letter 
+        # If there has been 7 or more incorrect guesses
+        if wrong_guesses.size >= 7 
+          ## Lose the game
+          @check_win_or_lose = :lose 
         end
         return true
       end
     end
+    return false
   end
 end
