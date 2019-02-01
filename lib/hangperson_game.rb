@@ -12,6 +12,7 @@ class HangpersonGame
   attr_accessor :guesses
   attr_accessor :wrong_guesses
   attr_accessor :word_with_guesses
+  attr_accessor :check_win_or_lose
   
   # Initialize the game
   def initialize(word)
@@ -19,7 +20,12 @@ class HangpersonGame
     @guesses = ''
     @wrong_guesses = ''
     @word_with_guesses = ''
-    
+    word.each_char do |i|
+     
+      @word_with_guesses << '-'
+    end
+    @check_win_or_lose = :play
+
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
@@ -34,6 +40,11 @@ class HangpersonGame
     
     
 def guess(letter)
+  
+    raise ArgumentError if letter.nil?
+    raise ArgumentError if letter == ''
+    raise ArgumentError if !letter.match(/[a-zA-Z]/)
+
     letter.downcase!
     
     if word.include? letter
@@ -51,8 +62,12 @@ def guess(letter)
               # Win the game
               @check_win_or_lose = :win
             end
+          end
+        end
+        return true
+      end
       else
-        ## If letter has not already been guessed
+        # If letter has not already been guessed
        if !wrong_guesses.include? letter 
          # Add the letter to array
         wrong_guesses << letter 
